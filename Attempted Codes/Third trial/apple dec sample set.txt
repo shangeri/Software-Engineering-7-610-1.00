@@ -1,0 +1,13 @@
+x	y
+December	753
+January	916
+February	132
+March	753
+April	916
+May	132
+June	753
+July	916
+August	132
+September	753
+October	916
+November	132
