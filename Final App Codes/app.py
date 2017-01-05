@@ -33,8 +33,8 @@ Apple_Volume = pd.DataFrame(
 df_merge = pd.merge(Apple_Stocks, Apple_Volume, how='outer')
 
 ax = df_merge[['month', 'Apple Volume']].plot(
-    x='month', linestyle='-', marker='o')
+    x='month', linestyle='-', marker='o', color='r')
 df_merge[['month', 'Apple Tweets']].plot(x='month', kind='bar',
-                                                        ax=ax)
+                                                        ax=ax, color='y')
 
 plt.show()
