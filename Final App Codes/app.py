@@ -8,33 +8,21 @@ from csv import reader
 from dateutil import parser
 import numpy as np
 
-with open('apple dec sample set.csv', 'r') as f:
-    data = list(reader(f))
 
-month = [i[0] for i in data[0::]]
+df = pd.read_csv(open('apple tweets sample.csv', 'r'), index_col=0, delimiter=',', skipinitialspace=True)
+df2 = pd.read_csv(open('apple volume sample.csv', 'r'), index_col=0, delimiter=',', skipinitialspace=True)
 
-tweets = np.array([i[1] for i in data[0::]])
-tweets = tweets.astype(np.float)
 
-volume = np.array([i[2] for i in data[0::]])
-volume = volume.astype(np.float)
+fig = plt.figure() # Create matplotlib figure
 
-Apple_Stocks = pd.DataFrame(
-    {'month': month,
-     'Apple Tweets': tweets})
+ax = fig.add_subplot(111) # Create matplotlib axes
+ax2 = ax.twinx() # Create another axes that shares the same x-axis as ax.
 
-#right_2014 = pd.DataFrame({'month': ['jan', 'feb'], '2014_val': [4, 5]})
+width = 0.4
 
-Apple_Volume = pd.DataFrame(
-    {'month': month,
-     'Apple Volume': volume})
-
-#df_13_14 = pd.merge(left_2013, right_2014, how='outer')
-df_merge = pd.merge(Apple_Stocks, Apple_Volume, how='outer')
-
-ax = df_merge[['month', 'Apple Volume']].plot(
-    x='month', linestyle='-', marker='o', color='r')
-df_merge[['month', 'Apple Tweets']].plot(x='month', kind='bar',
-                                                        ax=ax, color='y')
+df.Tweets.plot(kind='bar', color='red', ax=ax, width=width, position=1)
+ax2.plot(ax.get_xticks(),df2[['Volume']].values, linestyle='-', marker='o', linewidth=2.0)
+ax.set_ylabel('Tweets (red)')
+ax2.set_ylabel('Volume (blue)')
 
 plt.show()
