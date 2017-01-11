@@ -8,6 +8,11 @@ import calendar
 
 
 def format_date(date_str, format_str='%b %d %Y %H:%M'):
+    # tries to work even when the format of the date string is different
+    # in another file...
+
+    # will be simplified...
+
     d0 = string.translate(date_str, None, ',"')
     d1 = d0.split()
 
@@ -26,27 +31,36 @@ def format_date(date_str, format_str='%b %d %Y %H:%M'):
     year = [s for s in day_year_lst if len(s) == 4][0]
     time_12 = datetime.datetime.strptime(time_lst[0], '%I:%M%p')
     time_24 = time_12.strftime('%H:%M')
-    return ' '.join([month_abbr, day, year, time_24])
+    return ' '.join([month_abbr, day, year, time_24, '\n'])
 
-
-def delete():
-    pass
 
 
 def main():
     if len(sys.argv) != 2:
         prog = os.path.basename(sys.argv[0])
-        print('usage: ./{0} <excel_file>'.format(prog))
+        # different in windows probably
+        print('usage: ./{0} <csv_file>'.format(prog))
         sys.exit(1)
 
     try:
         csv_file = open(sys.argv[1], 'r')
+        ll = len(sys.argv[1]) - 4
+        output_name = sys.argv[1][0:ll] + '_new.csv'
+        output = open(output_name, 'w')
     except IOError:
         print('cant open {0}'.format(sys.argv[1]))
         sys.exit(1)
 
-    print(format_date('""December 16"," 2016 at 06:04PM""'))
+    # will be extended ... 
+    for line in csv_file:
+        line_split = line.split('\t')[0:4]
+        line_split[3] = format_date(line_split[3])
+        output.write('\t'.join(line_split))
+
+    csv_file.close()
+    output.close()
 
 
 if __name__ == '__main__':
     main()
+
