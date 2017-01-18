@@ -21,8 +21,10 @@ ax2 = ax.twinx() # Create another axes that shares the same x-axis as ax.
 width = 0.4
 
 df.tweets.plot(kind='bar', color='red', ax=ax, width=width, position=1)
-ax2.plot(ax.get_xticks(),df2[['Tesla Trading Volume']].values, linestyle='-', marker='o', linewidth=2.0)
+ax2.plot(ax.get_xticks(), df2[['Tesla Trading Volume']].values, linestyle='-', marker='o', linewidth=2.0)
 ax.set_ylabel('Number of Tweets (red)')
 ax2.set_ylabel('Volume (blue)')
 
+wm = plt.get_current_fig_manager()
+wm.window.state('zoomed')
 plt.show()
