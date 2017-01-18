@@ -9,8 +9,8 @@ from dateutil import parser
 import numpy as np
 
 
-df = pd.read_csv(open('apple tweets new.csv', 'r'), index_col=0, delimiter=',', skipinitialspace=True)
-df2 = pd.read_csv(open('apple volume new.csv', 'r'), index_col=0, delimiter=',', skipinitialspace=True)
+df = pd.read_csv(open('final tweets data.csv', 'r'), index_col=0, delimiter=',', skipinitialspace=True)
+df2 = pd.read_csv(open('final volume data.csv', 'r'), index_col=0, delimiter=',', skipinitialspace=True)
 
 
 fig = plt.figure() # Create matplotlib figure
